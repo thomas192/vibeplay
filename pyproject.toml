@@ -1,0 +1,47 @@
+[project]
+name = "vibeplay"
+version = "0.1.0"
+description = "CSV music library to vibe-based playlists"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "numpy",
+    "faiss-cpu",
+    "sentence-transformers",
+    "tqdm",
+    "python-dotenv",
+    "tenacity",
+    "pydantic",
+    "pydantic-settings",
+    "click",
+    "requests",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+    "pre-commit",
+    "types-requests",
+]
+preview = true
+
+[tool.uv.scripts]
+gen-vibes = "python -m vibeplay.cli gen-vibes"
+embed = "python -m vibeplay.cli embed"
+make-playlist = "python -m vibeplay.cli make-playlist"
+fmt = "ruff check --fix ."
+lint = "ruff check . && mypy vibeplay"
+test = "pytest -q"
+
+[tool.mypy]
+python_version = "3.11"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
